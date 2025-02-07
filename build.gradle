@@ -17,6 +17,12 @@ dependencies {
     //Smallrye Health
     implementation 'io.quarkus:quarkus-smallrye-health'
 
+    //Flyway Configurations
+    implementation 'io.quarkus:quarkus-flyway'
+    implementation 'org.flywaydb:flyway-mysql'
+    implementation 'io.quarkus:quarkus-jdbc-mysql'
+
+
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
 }
