@@ -6,7 +6,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/app_status")
-public class AppStatusResource {
+public class AppStatus {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
