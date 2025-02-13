@@ -7,9 +7,13 @@ import org.sahni.models.db.Users;
 import org.sahni.models.requests.CreateUserRequest;
 import org.sahni.repositories.UsersRepository;
 import org.sahni.services.UsersService;
+import org.sahni.validators.UsersRequestValidator;
 
 @ApplicationScoped
 public class UsersServiceImpl implements UsersService {
+
+    @Inject
+    UsersRequestValidator usersRequestValidator;
 
     @Inject
     UsersRepository usersRepository;
@@ -20,7 +24,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Uni<Users> saveUser(CreateUserRequest createUserRequest) {
-        return usersRepository.saveUser(new Users());
+    public Uni<Users> createUser(CreateUserRequest createUserRequest) {
+        usersRequestValidator.validate(createUserRequest);
+        return usersRepository.createUser(new Users());
     }
 }

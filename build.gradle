@@ -26,6 +26,7 @@ dependencies {
 
     //  lombok
     compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
 
     //  reactive SQL Client
     implementation 'io.quarkus:quarkus-hibernate-reactive-panache'

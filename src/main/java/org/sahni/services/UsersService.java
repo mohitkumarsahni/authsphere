@@ -7,5 +7,5 @@ import org.sahni.models.requests.CreateUserRequest;
 public interface UsersService {
 
     public Uni<Users> getUser(Long id);
-    public Uni<Users> saveUser(CreateUserRequest createUserRequest);
+    public Uni<Users> createUser(CreateUserRequest createUserRequest);
 }

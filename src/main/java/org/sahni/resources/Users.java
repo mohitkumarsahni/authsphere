@@ -19,6 +19,7 @@ public class Users {
     UsersService usersService;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Uni<org.sahni.models.db.Users> getUser(
             @QueryParam(value = "id") Long id
     ) {
@@ -31,7 +32,7 @@ public class Users {
     public Uni<org.sahni.models.db.Users> createUser(
             CreateUserRequest createUserRequest
     ) {
-        return usersService.saveUser(createUserRequest);
+        return usersService.createUser(createUserRequest);
     }
 
 }
