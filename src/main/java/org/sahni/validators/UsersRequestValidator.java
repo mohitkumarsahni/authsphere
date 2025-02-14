@@ -5,16 +5,23 @@ import org.sahni.exception.AuthSphereException;
 import org.sahni.exception.ErrorCodes;
 import org.sahni.models.requests.CreateUserRequest;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.sahni.exception.ErrorMessages.BLANK_EMPTY_DOB_MESSAGE;
 import static org.sahni.exception.ErrorMessages.BLANK_EMPTY_EMAIL_ID_MESSAGE;
 import static org.sahni.exception.ErrorMessages.BLANK_EMPTY_FIRST_NAME_MESSAGE;
 import static org.sahni.exception.ErrorMessages.BLANK_EMPTY_LAST_NAME_MESSAGE;
+import static org.sahni.exception.ErrorMessages.BLANK_EMPTY_PASSWORD_MESSAGE;
 import static org.sahni.exception.ErrorMessages.INVALID_DOB_MESSAGE;
 import static org.sahni.exception.ErrorMessages.INVALID_EMAIL_ID_MESSAGE;
+import static org.sahni.exception.ErrorMessages.REQUIRED_CHARACTERS_PASSWORD_MESSAGE;
 import static org.sahni.exception.ErrorMessages.REQUIRED_DOB_MESSAGE;
 import static org.sahni.exception.ErrorMessages.REQUIRED_EMAIL_ID_MESSAGE;
 import static org.sahni.exception.ErrorMessages.REQUIRED_FIRST_NAME_MESSAGE;
 import static org.sahni.exception.ErrorMessages.REQUIRED_LAST_NAME_MESSAGE;
+import static org.sahni.exception.ErrorMessages.REQUIRED_LENGTH_PASSWORD_MESSAGE;
+import static org.sahni.exception.ErrorMessages.REQUIRED_PASSWORD_MESSAGE;
 import static org.sahni.exception.ErrorMessages.REQUIRED_REQUEST_BODY_MESSAGE;
 import static org.sahni.exception.ErrorMessages.TOO_LARGE_FIRST_NAME_MESSAGE;
 import static org.sahni.exception.ErrorMessages.TOO_LARGE_LAST_NAME_MESSAGE;
@@ -30,6 +37,7 @@ public class UsersRequestValidator extends BaseValidator {
         validateLastName(createUserRequest.getLastName());
         validateDate(createUserRequest.getDateOfBirth());
         validateEmailID(createUserRequest.getEmailID());
+        validatePassword(createUserRequest.getPassword());
     }
 
     private void validateFirstName(String value) {
@@ -99,6 +107,29 @@ public class UsersRequestValidator extends BaseValidator {
                 throw new AuthSphereException(INVALID_EMAIL_ID_MESSAGE, ErrorCodes.BAD_REQUEST.toString(), 400);
             }
             default -> {}
+        }
+    }
+
+    private void validatePassword(String password) {
+        nullCheck(password, REQUIRED_PASSWORD_MESSAGE);
+        switch (password) {
+            case String str when str.isEmpty() -> {
+                throw new AuthSphereException(BLANK_EMPTY_PASSWORD_MESSAGE, ErrorCodes.BAD_REQUEST.toString(), 400);
+            }
+            case String str when str.isBlank() -> {
+                throw new AuthSphereException(BLANK_EMPTY_PASSWORD_MESSAGE, ErrorCodes.BAD_REQUEST.toString(), 400);
+            }
+            default -> {
+                if (password.length() < 10) {
+                    throw new AuthSphereException(REQUIRED_LENGTH_PASSWORD_MESSAGE, ErrorCodes.BAD_REQUEST.toString(), 400);
+                }
+                String regex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[@#$]).{10,}$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(password);
+                if (!matcher.matches()) {
+                    throw new AuthSphereException(REQUIRED_CHARACTERS_PASSWORD_MESSAGE, ErrorCodes.BAD_REQUEST.toString(), 400);
+                }
+            }
         }
     }
 }

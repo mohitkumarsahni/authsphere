@@ -16,6 +16,9 @@ dependencies {
     //  rest
     implementation 'io.quarkus:quarkus-rest-jackson'
 
+    //  security
+    implementation 'io.quarkus:quarkus-security-jpa-reactive'
+
     //  smallrye Health
     implementation 'io.quarkus:quarkus-smallrye-health'
 

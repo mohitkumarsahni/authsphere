@@ -1,7 +1,7 @@
 package org.sahni.repositories;
 
 import io.quarkus.hibernate.reactive.panache.PanacheRepository;
-import io.quarkus.hibernate.reactive.panache.common.WithSession;
+import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.sahni.models.db.Users;
@@ -9,12 +9,12 @@ import org.sahni.models.db.Users;
 @ApplicationScoped
 public class UsersRepository implements PanacheRepository<Users> {
 
-    @WithSession
+    @WithTransaction
     public Uni<Users> fetchUserById(Long id) {
         return find("id", id).firstResult();
     }
 
-    @WithSession
+    @WithTransaction
     public Uni<Users> createUser(Users user) {
         return persist(user);
     }

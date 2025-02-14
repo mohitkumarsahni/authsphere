@@ -21,4 +21,9 @@ public class ErrorMessages {
     public static final String REQUIRED_EMAIL_ID_MESSAGE = "Email ID is required.";
     public static final String BLANK_EMPTY_EMAIL_ID_MESSAGE = "Email ID can not be empty or blank.";
     public static final String INVALID_EMAIL_ID_MESSAGE = "Email ID is invalid. Please provide a valid email id.";
+
+    public static final String REQUIRED_PASSWORD_MESSAGE = "Password is required.";
+    public static final String BLANK_EMPTY_PASSWORD_MESSAGE = "Password can not be empty or blank.";
+    public static final String REQUIRED_LENGTH_PASSWORD_MESSAGE = "Password should be minimum of 10 characters.";
+    public static final String REQUIRED_CHARACTERS_PASSWORD_MESSAGE = "Password should be an alpha numeric with 1 special characters from @, #, $.";
 }

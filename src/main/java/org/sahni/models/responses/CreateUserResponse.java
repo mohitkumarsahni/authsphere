@@ -9,20 +9,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class UserResponse {
-
-    @JsonProperty("first_name")
-    String firstName;
-
-    @JsonProperty("last_name")
-    String lastName;
-
-    @JsonProperty("date_of_birth")
-    String dateOfBirth;
-
-    @JsonProperty("email_id")
-    String emailID;
+public class CreateUserResponse {
+    @JsonProperty("message")
+    private String message;
 }
