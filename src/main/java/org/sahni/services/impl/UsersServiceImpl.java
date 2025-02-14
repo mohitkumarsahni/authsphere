@@ -3,6 +3,7 @@ package org.sahni.services.impl;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import org.sahni.commons.AuthSphereUtility;
 import org.sahni.models.db.Users;
 import org.sahni.models.requests.CreateUserRequest;
 import org.sahni.repositories.UsersRepository;
@@ -26,6 +27,19 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Uni<Users> createUser(CreateUserRequest createUserRequest) {
         usersRequestValidator.validate(createUserRequest);
-        return usersRepository.createUser(new Users());
+        return usersRepository.createUser(convertToModel(createUserRequest));
+    }
+
+    private Users convertToModel(CreateUserRequest createUserRequest) {
+        return Users
+                .builder()
+                .firstName(createUserRequest.getFirstName())
+                .lastName(createUserRequest.getLastName())
+                .dateOfBirth(AuthSphereUtility.convertToDate(createUserRequest.getDateOfBirth()))
+                .emailID(createUserRequest.getEmailID())
+                .isActive(true)
+                .isEmailValidated(false)
+                .password("")
+                .build();
     }
 }
