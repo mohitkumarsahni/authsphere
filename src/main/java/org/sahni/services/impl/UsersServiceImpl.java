@@ -7,7 +7,7 @@ import jakarta.ws.rs.core.Response;
 import org.sahni.commons.utils.AuthSphereUtility;
 import org.sahni.commons.utils.PasswordUtility;
 import org.sahni.models.db.Users;
-import org.sahni.models.requests.CreateUserRequest;
+import org.sahni.models.requests.SignUpRequest;
 import org.sahni.models.responses.CreateUserResponse;
 import org.sahni.models.responses.UserResponse;
 import org.sahni.repositories.UsersRepository;
@@ -42,10 +42,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Uni<Response> createUser(CreateUserRequest createUserRequest) {
-        usersRequestValidator.validate(createUserRequest);
+    public Uni<Response> signUpUser(SignUpRequest signUpRequest) {
+        usersRequestValidator.validate(signUpRequest);
         return usersRepository
-                .createUser(convertToModel(createUserRequest))
+                .persistUser(convertToModel(signUpRequest))
                 .onItem()
                 .transform(user -> {
                     return Response
@@ -60,16 +60,16 @@ public class UsersServiceImpl implements UsersService {
                 });
     }
 
-    private Users convertToModel(CreateUserRequest createUserRequest) {
+    private Users convertToModel(SignUpRequest signUpRequest) {
         return Users
                 .builder()
-                .firstName(createUserRequest.getFirstName())
-                .lastName(createUserRequest.getLastName())
-                .dateOfBirth(AuthSphereUtility.convertToDate(createUserRequest.getDateOfBirth()))
-                .emailID(createUserRequest.getEmailID())
+                .firstName(signUpRequest.getFirstName())
+                .lastName(signUpRequest.getLastName())
+                .dateOfBirth(AuthSphereUtility.convertToDate(signUpRequest.getDateOfBirth()))
+                .emailID(signUpRequest.getEmailID())
                 .isActive(true)
                 .isEmailValidated(false)
-                .password(PasswordUtility.hashPassword(createUserRequest.getPassword()))
+                .password(PasswordUtility.hashPassword(signUpRequest.getPassword()))
                 .build();
     }
 }

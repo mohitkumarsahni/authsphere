@@ -3,7 +3,7 @@ package org.sahni.validators;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.sahni.exception.AuthSphereException;
 import org.sahni.exception.ErrorCodes;
-import org.sahni.models.requests.CreateUserRequest;
+import org.sahni.models.requests.SignUpRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,13 +31,13 @@ import static org.sahni.exception.ErrorMessages.TOO_SMALL_LAST_NAME_MESSAGE;
 @ApplicationScoped
 public class UsersRequestValidator extends BaseValidator {
 
-    public void validate(CreateUserRequest createUserRequest) {
-        nullCheck(createUserRequest, REQUIRED_REQUEST_BODY_MESSAGE);
-        validateFirstName(createUserRequest.getFirstName());
-        validateLastName(createUserRequest.getLastName());
-        validateDate(createUserRequest.getDateOfBirth());
-        validateEmailID(createUserRequest.getEmailID());
-        validatePassword(createUserRequest.getPassword());
+    public void validate(SignUpRequest signUpRequest) {
+        nullCheck(signUpRequest, REQUIRED_REQUEST_BODY_MESSAGE);
+        validateFirstName(signUpRequest.getFirstName());
+        validateLastName(signUpRequest.getLastName());
+        validateDate(signUpRequest.getDateOfBirth());
+        validateEmailID(signUpRequest.getEmailID());
+        validatePassword(signUpRequest.getPassword());
     }
 
     private void validateFirstName(String value) {

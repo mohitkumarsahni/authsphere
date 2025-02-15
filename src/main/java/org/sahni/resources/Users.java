@@ -10,7 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.sahni.models.requests.CreateUserRequest;
+import org.sahni.models.requests.SignUpRequest;
 import org.sahni.models.responses.UserResponse;
 import org.sahni.services.UsersService;
 
@@ -31,10 +31,11 @@ public class Users {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Response> createUser(
-            CreateUserRequest createUserRequest
+    @Path("/signup")
+    public Uni<Response> signUpUser(
+            SignUpRequest signUpRequest
     ) {
-        return usersService.createUser(createUserRequest);
+        return usersService.signUpUser(signUpRequest);
     }
 
 }

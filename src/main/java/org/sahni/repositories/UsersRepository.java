@@ -15,7 +15,7 @@ public class UsersRepository implements PanacheRepository<Users> {
     }
 
     @WithTransaction
-    public Uni<Users> createUser(Users user) {
+    public Uni<Users> persistUser(Users user) {
         return persist(user);
     }
 }
