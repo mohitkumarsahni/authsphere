@@ -15,6 +15,11 @@ public class UsersRepository implements PanacheRepository<Users> {
     }
 
     @WithTransaction
+    public Uni<Users> fetchUserByEmailId(String emailId) {
+        return find("emailID", emailId).firstResult();
+    }
+
+    @WithTransaction
     public Uni<Users> persistUser(Users user) {
         return persist(user);
     }

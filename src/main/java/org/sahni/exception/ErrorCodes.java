@@ -6,7 +6,7 @@ public enum ErrorCodes {
     BAD_REQUEST("Bad request"),
     INTERNAL_SERVER_ERROR("Internal server error");
 
-    private String code;
+    private final String code;
 
     ErrorCodes(String code) {
         this.code = code;

@@ -6,7 +6,10 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.sahni.commons.utils.AuthSphereUtility;
 import org.sahni.commons.utils.PasswordUtility;
+import org.sahni.exception.AuthSphereException;
+import org.sahni.exception.ErrorCodes;
 import org.sahni.models.db.Users;
+import org.sahni.models.requests.LogInRequest;
 import org.sahni.models.requests.SignUpRequest;
 import org.sahni.models.responses.CreateUserResponse;
 import org.sahni.models.responses.UserResponse;
@@ -14,7 +17,10 @@ import org.sahni.repositories.UsersRepository;
 import org.sahni.services.UsersService;
 import org.sahni.validators.UsersRequestValidator;
 
+import java.util.Objects;
+
 import static org.sahni.commons.Constants.CREATE_USER_SUCCESS_MESSAGE;
+import static org.sahni.exception.ErrorMessages.INCORRECT_PASSWORD_MESSAGE;
 
 @ApplicationScoped
 public class UsersServiceImpl implements UsersService {
@@ -56,6 +62,31 @@ public class UsersServiceImpl implements UsersService {
                                             .message(CREATE_USER_SUCCESS_MESSAGE)
                                             .build()
                             )
+                            .build();
+                });
+    }
+
+    @Override
+    public Uni<UserResponse> logInUser(LogInRequest logInRequest) {
+        usersRequestValidator.validate(logInRequest);
+        return usersRepository
+                .fetchUserByEmailId(logInRequest.getEmailID())
+                .onItem()
+                .transform(user -> {
+                    if (Objects.isNull(user)) {
+                        throw new AuthSphereException(INCORRECT_PASSWORD_MESSAGE, ErrorCodes.UNAUTHORIZED_ACCESS.toString(), 401);
+                    }
+
+                    if (!PasswordUtility.checkPassword(logInRequest.getPassword(), user.getPassword())) {
+                        throw new AuthSphereException(INCORRECT_PASSWORD_MESSAGE, ErrorCodes.UNAUTHORIZED_ACCESS.toString(), 401);
+                    };
+
+                    return UserResponse
+                            .builder()
+                            .firstName(user.getFirstName())
+                            .lastName(user.getLastName())
+                            .dateOfBirth(user.getDateOfBirth().toString())
+                            .emailID(user.getEmailID())
                             .build();
                 });
     }

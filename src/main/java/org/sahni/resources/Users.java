@@ -10,6 +10,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.sahni.models.requests.LogInRequest;
 import org.sahni.models.requests.SignUpRequest;
 import org.sahni.models.responses.UserResponse;
 import org.sahni.services.UsersService;
@@ -36,6 +37,16 @@ public class Users {
             SignUpRequest signUpRequest
     ) {
         return usersService.signUpUser(signUpRequest);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/login")
+    public Uni<UserResponse> logInUser(
+            LogInRequest logInRequest
+    ) {
+        return usersService.logInUser(logInRequest);
     }
 
 }
