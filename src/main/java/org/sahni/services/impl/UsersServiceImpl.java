@@ -5,6 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.sahni.commons.utils.AuthSphereUtility;
+import org.sahni.commons.utils.JwtUtility;
 import org.sahni.commons.utils.PasswordUtility;
 import org.sahni.exception.AuthSphereException;
 import org.sahni.exception.ErrorCodes;
@@ -12,6 +13,7 @@ import org.sahni.models.db.Users;
 import org.sahni.models.requests.LogInRequest;
 import org.sahni.models.requests.SignUpRequest;
 import org.sahni.models.responses.CreateUserResponse;
+import org.sahni.models.responses.LogInResponse;
 import org.sahni.models.responses.UserResponse;
 import org.sahni.repositories.UsersRepository;
 import org.sahni.services.UsersService;
@@ -67,7 +69,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Uni<UserResponse> logInUser(LogInRequest logInRequest) {
+    public Uni<LogInResponse> logInUser(LogInRequest logInRequest) {
         usersRequestValidator.validate(logInRequest);
         return usersRepository
                 .fetchUserByEmailId(logInRequest.getEmailID())
@@ -81,12 +83,9 @@ public class UsersServiceImpl implements UsersService {
                         throw new AuthSphereException(INCORRECT_PASSWORD_MESSAGE, ErrorCodes.UNAUTHORIZED_ACCESS.toString(), 401);
                     };
 
-                    return UserResponse
+                    return LogInResponse
                             .builder()
-                            .firstName(user.getFirstName())
-                            .lastName(user.getLastName())
-                            .dateOfBirth(user.getDateOfBirth().toString())
-                            .emailID(user.getEmailID())
+                            .token(JwtUtility.createJWT(user.getId().toString()))
                             .build();
                 });
     }

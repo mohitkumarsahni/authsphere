@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 public class AppStatus {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String appStatus() {
         return "All Okay.";
     }

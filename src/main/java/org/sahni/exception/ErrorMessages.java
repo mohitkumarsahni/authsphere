@@ -28,4 +28,5 @@ public class ErrorMessages {
     public static final String REQUIRED_CHARACTERS_PASSWORD_MESSAGE = "Password should be an alpha numeric with 1 special characters from @, #, $.";
 
     public static final String INCORRECT_PASSWORD_MESSAGE = "Incorrect credentials.";
+    public static final String AUTHENTICATION_EXCEPTION_MESSAGE = "Unauthorized access blocked. Please try login again or refresh token.";
 }

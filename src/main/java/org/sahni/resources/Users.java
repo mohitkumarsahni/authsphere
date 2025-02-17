@@ -1,5 +1,6 @@
 package org.sahni.resources;
 
+import io.quarkus.security.Authenticated;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -12,6 +13,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.sahni.models.requests.LogInRequest;
 import org.sahni.models.requests.SignUpRequest;
+import org.sahni.models.responses.LogInResponse;
 import org.sahni.models.responses.UserResponse;
 import org.sahni.services.UsersService;
 
@@ -23,6 +25,7 @@ public class Users {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
     public Uni<UserResponse> getUser(
             @QueryParam(value = "id") Long id
     ) {
@@ -43,7 +46,7 @@ public class Users {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login")
-    public Uni<UserResponse> logInUser(
+    public Uni<LogInResponse> logInUser(
             LogInRequest logInRequest
     ) {
         return usersService.logInUser(logInRequest);
