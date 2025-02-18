@@ -1,14 +1,15 @@
-package org.sahni.exception;
+package org.sahni.exception.authentication;
 
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
+import org.sahni.exception.AuthSphereException;
 import org.sahni.models.responses.ErrorResponse;
 
 import static org.sahni.exception.ErrorCodes.INTERNAL_SERVER_ERROR;
 
 @Provider
-public class ExceptionHandler implements ExceptionMapper<Exception> {
+public class AuthSphereExceptionMapper implements ExceptionMapper<Exception> {
 
     @Override
     public Response toResponse(Exception exception) {
