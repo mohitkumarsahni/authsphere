@@ -1,19 +1,20 @@
 name: 'Build & Test'
-description: 'To build and test the application.'
 
 on:
   push:
     branches: ["main"]
 
 jobs:
-  - uses: actions/checkout@v4
-  - uses: actions/setup-java@v4
-    with:
-      java-version: '21'
-      distribution: 'temurin'
-  - name: Setup Gradle
-    uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-  - name: Build with Gradle
-    run: ./gradlew build
-  - name: Finish
-    run: echo 'Build finished successfully.'
+  buid:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Setup Java 21'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: 'Build with Gradle'
+        run: ./gradlew build
+      - name: 'Build finished.'
+        run: echo 'Build finished successfully.'
