@@ -52,4 +52,27 @@ public class Users {
         return usersService.logInUser(logInRequest);
     }
 
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Authenticated
+    @Path("/generate-otp")
+    public Uni<Void> generateOTP(
+            @QueryParam(value = "id") Long id
+    ) {
+        return usersService.generateOTP(id);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Authenticated
+    @Path("/verify-otp")
+    public Uni<UserResponse> verifyOTP(
+            @QueryParam(value = "id") Long id
+    ) {
+        return usersService.getUser(id);
+    }
+
 }

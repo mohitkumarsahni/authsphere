@@ -1,5 +1,5 @@
 -- users table
-CREATE TABLE USERS (
+CREATE TABLE IF NOT EXISTS USERS (
    ID                       INT             AUTO_INCREMENT,
    FIRST_NAME               VARCHAR(20)     NOT NULL,
    LAST_NAME                VARCHAR(20),

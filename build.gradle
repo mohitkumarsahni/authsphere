@@ -13,6 +13,9 @@ dependencies {
 
     implementation 'io.quarkus:quarkus-arc'
 
+    //  email
+    implementation 'io.quarkus:quarkus-mailer'
+
     //  rest
     implementation 'io.quarkus:quarkus-rest-jackson'
 

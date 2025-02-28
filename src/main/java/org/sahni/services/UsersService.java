@@ -12,4 +12,6 @@ public interface UsersService {
     public Uni<UserResponse> getUser(Long id);
     public Uni<Response> signUpUser(SignUpRequest signUpRequest);
     public Uni<LogInResponse> logInUser(LogInRequest logInRequest);
+    public Uni<Void> generateOTP(Long id);
+    public Uni<Void> verifyOTP();
 }

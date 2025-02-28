@@ -29,4 +29,7 @@ public class ErrorMessages {
 
     public static final String INCORRECT_PASSWORD_MESSAGE = "Incorrect credentials.";
     public static final String AUTHENTICATION_EXCEPTION_MESSAGE = "Unauthorized access blocked. Please try login again or refresh token.";
+
+    public static final String RESOURCE_NOT_FOUND = "Unable to find the resource.";
+    public static final String INTERNAL_SERVER_ERROR = "Something unexpected happen. Please try again.";
 }
