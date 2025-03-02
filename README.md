@@ -8,5 +8,7 @@ The goal of this project is to provide a basic, secure way to manage users for y
 
 ### Features:
 -[x] User sign-up and log-in with JWT
+
 -[x] Email verification
+
 -[ ] Audit Trails for users
